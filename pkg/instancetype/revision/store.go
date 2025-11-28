@@ -45,8 +45,8 @@ import (
 	"kubevirt.io/kubevirt/pkg/util"
 )
 
-func (h *revisionHandler) Store(vm *virtv1.VirtualMachine) error {
-	instancetypeStatusRef, err := h.storeInstancetypeRevision(vm)
+func (h *revisionHandler) Store(vm *virtv1.VirtualMachine, vmi *virtv1.VirtualMachineInstance) error {
+	instancetypeStatusRef, err := h.storeInstancetypeRevision(vm, vmi)
 	if err != nil {
 		log.Log.Object(vm).Reason(err).Error("Failed to store ControllerRevision of VirtualMachineInstancetypeSpec for the Virtualmachine.")
 		return err
@@ -126,7 +126,8 @@ func syncInferFromVolumeFailurePolicy(matcher virtv1.Matcher, statusRef *virtv1.
 	}
 }
 
-func (h *revisionHandler) storeInstancetypeRevision(vm *virtv1.VirtualMachine) (*virtv1.InstancetypeStatusRef, error) {
+func (h *revisionHandler) storeInstancetypeRevision(vm *virtv1.VirtualMachine,
+	vmi *virtv1.VirtualMachineInstance) (*virtv1.InstancetypeStatusRef, error) {
 	if vm.Spec.Instancetype == nil {
 		return nil, nil
 	}
@@ -134,6 +135,11 @@ func (h *revisionHandler) storeInstancetypeRevision(vm *virtv1.VirtualMachine) (
 	if vm.Status.InstancetypeRef == nil {
 		vm.Status.InstancetypeRef = &virtv1.InstancetypeStatusRef{}
 	}
+
+	if vm.Status.InstancetypeRef.Refresh && vmi == nil {
+		vm.Status.InstancetypeRef = &virtv1.InstancetypeStatusRef{}
+	}
+
 	statusRef := vm.Status.InstancetypeRef.DeepCopy()
 
 	if err := syncStatusWithMatcher(vm, vm.Spec.Instancetype, statusRef, h.createInstancetypeRevision); err != nil {

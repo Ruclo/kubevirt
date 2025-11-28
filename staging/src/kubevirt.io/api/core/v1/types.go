@@ -2155,6 +2155,19 @@ type InstancetypeStatusRef struct {
 	//
 	// +optional
 	InferFromVolumeFailurePolicy *InferFromVolumeFailurePolicy `json:"inferFromVolumeFailurePolicy,omitempty"`
+
+	// Refresh indicates that a new ControllerRevision should be created
+	// from the current instancetype/preference resource when the VM is stopped.
+	// This field is automatically cleared after the refresh is processed.
+	// +optional
+	Refresh bool `json:"refresh,omitempty"`
+}
+
+// RefreshOptions contains options for refreshing instancetype/preference revisions
+type RefreshOptions struct {
+	// DryRun is a list of dryRun options. Currently only metadata.name is supported
+	// +optional
+	DryRun []string `json:"dryRun,omitempty"`
 }
 
 type ChangedBlockTrackingState string

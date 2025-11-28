@@ -495,6 +495,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubevirt.io/api/core/v1.RTCTimer":                                                                schema_kubevirtio_api_core_v1_RTCTimer(ref),
 		"kubevirt.io/api/core/v1.RateLimiter":                                                             schema_kubevirtio_api_core_v1_RateLimiter(ref),
 		"kubevirt.io/api/core/v1.Realtime":                                                                schema_kubevirtio_api_core_v1_Realtime(ref),
+		"kubevirt.io/api/core/v1.RefreshOptions":                                                          schema_kubevirtio_api_core_v1_RefreshOptions(ref),
 		"kubevirt.io/api/core/v1.ReloadableComponentConfiguration":                                        schema_kubevirtio_api_core_v1_ReloadableComponentConfiguration(ref),
 		"kubevirt.io/api/core/v1.RemoveVolumeOptions":                                                     schema_kubevirtio_api_core_v1_RemoveVolumeOptions(ref),
 		"kubevirt.io/api/core/v1.ResourceRequirements":                                                    schema_kubevirtio_api_core_v1_ResourceRequirements(ref),
@@ -21157,6 +21158,13 @@ func schema_kubevirtio_api_core_v1_InstancetypeStatusRef(ref common.ReferenceCal
 							Format:      "",
 						},
 					},
+					"refresh": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Refresh indicates that a new ControllerRevision should be created from the current instancetype/preference resource when the VM is stopped. This field is automatically cleared after the refresh is processed.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 				},
 			},
 		},
@@ -24101,6 +24109,34 @@ func schema_kubevirtio_api_core_v1_Realtime(ref common.ReferenceCallback) common
 							Description: "Mask defines the vcpu mask expression that defines which vcpus are used for realtime. Format matches libvirt's expressions. Example: \"0-3,^1\",\"0,2,3\",\"2-3\"",
 							Type:        []string{"string"},
 							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_kubevirtio_api_core_v1_RefreshOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "RefreshOptions contains options for refreshing instancetype/preference revisions",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"dryRun": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DryRun is a list of dryRun options. Currently only metadata.name is supported",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: "",
+										Type:    []string{"string"},
+										Format:  "",
+									},
+								},
+							},
 						},
 					},
 				},

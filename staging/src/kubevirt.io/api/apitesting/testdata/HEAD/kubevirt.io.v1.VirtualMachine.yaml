@@ -818,6 +818,7 @@ status:
     inferFromVolumeFailurePolicy: inferFromVolumeFailurePolicyValue
     kind: kindValue
     name: nameValue
+    refresh: true
   memoryDumpRequest:
     claimName: claimNameValue
     endTimestamp: "1988-01-01T01:01:01Z"
@@ -834,6 +835,7 @@ status:
     inferFromVolumeFailurePolicy: inferFromVolumeFailurePolicyValue
     kind: kindValue
     name: nameValue
+    refresh: true
   printableStatus: printableStatusValue
   ready: true
   restoreInProgress: restoreInProgressValue

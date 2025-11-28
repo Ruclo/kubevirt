@@ -518,6 +518,14 @@ func (InstancetypeStatusRef) SwaggerDoc() map[string]string {
 		"controllerRevisionRef":        "ControllerRef specifies the ControllerRevision storing a copy of the object captured\nwhen it is first seen by the VirtualMachine controller",
 		"inferFromVolume":              "InferFromVolume lists the name of a volume that should be used to infer or discover the resource\n\n+optional",
 		"inferFromVolumeFailurePolicy": "InferFromVolumeFailurePolicy controls what should happen on failure when inferring the resource\n\n+optional",
+		"refresh":                      "Refresh indicates that a new ControllerRevision should be created\nfrom the current instancetype/preference resource when the VM is stopped.\nThis field is automatically cleared after the refresh is processed.\n+optional",
+	}
+}
+
+func (RefreshOptions) SwaggerDoc() map[string]string {
+	return map[string]string{
+		"":       "RefreshOptions contains options for refreshing instancetype/preference revisions",
+		"dryRun": "DryRun is a list of dryRun options. Currently only metadata.name is supported\n+optional",
 	}
 }
 

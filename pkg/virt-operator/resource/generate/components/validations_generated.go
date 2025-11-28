@@ -8392,6 +8392,12 @@ var CRDsValidation map[string]string = map[string]string{
             name:
               description: Name is the name of resource
               type: string
+            refresh:
+              description: |-
+                Refresh indicates that a new ControllerRevision should be created
+                from the current instancetype/preference resource when the VM is stopped.
+                This field is automatically cleared after the refresh is processed.
+              type: boolean
           type: object
         memoryDumpRequest:
           description: |-
@@ -8462,6 +8468,12 @@ var CRDsValidation map[string]string = map[string]string{
             name:
               description: Name is the name of resource
               type: string
+            refresh:
+              description: |-
+                Refresh indicates that a new ControllerRevision should be created
+                from the current instancetype/preference resource when the VM is stopped.
+                This field is automatically cleared after the refresh is processed.
+              type: boolean
           type: object
         printableStatus:
           default: Stopped
@@ -30643,6 +30655,12 @@ var CRDsValidation map[string]string = map[string]string{
                         name:
                           description: Name is the name of resource
                           type: string
+                        refresh:
+                          description: |-
+                            Refresh indicates that a new ControllerRevision should be created
+                            from the current instancetype/preference resource when the VM is stopped.
+                            This field is automatically cleared after the refresh is processed.
+                          type: boolean
                       type: object
                     memoryDumpRequest:
                       description: |-
@@ -30716,6 +30734,12 @@ var CRDsValidation map[string]string = map[string]string{
                         name:
                           description: Name is the name of resource
                           type: string
+                        refresh:
+                          description: |-
+                            Refresh indicates that a new ControllerRevision should be created
+                            from the current instancetype/preference resource when the VM is stopped.
+                            This field is automatically cleared after the refresh is processed.
+                          type: boolean
                       type: object
                     printableStatus:
                       default: Stopped

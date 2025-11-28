@@ -9483,6 +9483,67 @@
      }
     ]
    },
+   "/apis/subresources.kubevirt.io/v1/namespaces/{namespace}/virtualmachines/{name}/refresh/instancetype": {
+    "put": {
+     "description": "Refresh instancetype/preference revisions for a VirtualMachine object.",
+     "consumes": [
+      "*/*"
+     ],
+     "operationId": "v1RefreshInstancetype",
+     "parameters": [
+      {
+       "name": "body",
+       "in": "body",
+       "required": true,
+       "schema": {
+        "$ref": "#/definitions/v1.RefreshOptions"
+       }
+      }
+     ],
+     "responses": {
+      "202": {
+       "description": "Accepted",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "400": {
+       "description": "Bad Request",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "401": {
+       "description": "Unauthorized"
+      },
+      "404": {
+       "description": "Not Found",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "409": {
+       "description": "Conflict",
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "Name of the resource",
+      "name": "name",
+      "in": "path",
+      "required": true
+     },
+     {
+      "$ref": "#/parameters/namespace-nfszEHZ0"
+     }
+    ]
+   },
    "/apis/subresources.kubevirt.io/v1/namespaces/{namespace}/virtualmachines/{name}/removememorydump": {
     "put": {
      "description": "Remove memory dump association.",
@@ -11201,6 +11262,67 @@
      },
      {
       "$ref": "#/parameters/protocol-B-mX08es"
+     }
+    ]
+   },
+   "/apis/subresources.kubevirt.io/v1alpha3/namespaces/{namespace}/virtualmachines/{name}/refresh/instancetype": {
+    "put": {
+     "description": "Refresh instancetype/preference revisions for a VirtualMachine object.",
+     "consumes": [
+      "*/*"
+     ],
+     "operationId": "v1alpha3RefreshInstancetype",
+     "parameters": [
+      {
+       "name": "body",
+       "in": "body",
+       "required": true,
+       "schema": {
+        "$ref": "#/definitions/v1.RefreshOptions"
+       }
+      }
+     ],
+     "responses": {
+      "202": {
+       "description": "Accepted",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "400": {
+       "description": "Bad Request",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "401": {
+       "description": "Unauthorized"
+      },
+      "404": {
+       "description": "Not Found",
+       "schema": {
+        "type": "string"
+       }
+      },
+      "409": {
+       "description": "Conflict",
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "Name of the resource",
+      "name": "name",
+      "in": "path",
+      "required": true
+     },
+     {
+      "$ref": "#/parameters/namespace-nfszEHZ0"
      }
     ]
    },
@@ -14826,6 +14948,10 @@
      "name": {
       "description": "Name is the name of resource",
       "type": "string"
+     },
+     "refresh": {
+      "description": "Refresh indicates that a new ControllerRevision should be created from the current instancetype/preference resource when the VM is stopped. This field is automatically cleared after the refresh is processed.",
+      "type": "boolean"
      }
     }
    },
@@ -16387,6 +16513,20 @@
      "mask": {
       "description": "Mask defines the vcpu mask expression that defines which vcpus are used for realtime. Format matches libvirt's expressions. Example: \"0-3,^1\",\"0,2,3\",\"2-3\"",
       "type": "string"
+     }
+    }
+   },
+   "v1.RefreshOptions": {
+    "description": "RefreshOptions contains options for refreshing instancetype/preference revisions",
+    "type": "object",
+    "properties": {
+     "dryRun": {
+      "description": "DryRun is a list of dryRun options. Currently only metadata.name is supported",
+      "type": "array",
+      "items": {
+       "type": "string",
+       "default": ""
+      }
      }
     }
    },

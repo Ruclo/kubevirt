@@ -633,6 +633,18 @@ func (app *virtAPIApp) composeSubresources() {
 			Returns(http.StatusBadRequest, httpStatusBadRequestMessage, "").
 			Returns(http.StatusInternalServerError, httpStatusInternalServerError, ""))
 
+		subws.Route(subws.PUT(definitions.NamespacedResourcePath(subresourcesvmGVR)+definitions.SubResourcePath("refresh/instancetype")).
+			To(subresourceApp.RefreshInstancetypeRequestHandler).
+			Consumes(mime.MIME_ANY).
+			Reads(v1.RefreshOptions{}).
+			Param(definitions.NamespaceParam(subws)).Param(definitions.NameParam(subws)).
+			Operation(version.Version+"RefreshInstancetype").
+			Doc("Refresh instancetype/preference revisions for a VirtualMachine object.").
+			Returns(http.StatusAccepted, "Accepted", "").
+			Returns(http.StatusNotFound, httpStatusNotFoundMessage, "").
+			Returns(http.StatusConflict, "Conflict", "").
+			Returns(http.StatusBadRequest, httpStatusBadRequestMessage, ""))
+
 		// Return empty api resource list.
 		// K8s expects to be able to retrieve a resource list for each aggregated
 		// app in order to discover what resources it provides. Without returning

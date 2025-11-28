@@ -66,7 +66,7 @@ type expandHandler interface {
 }
 
 type storeHandler interface {
-	Store(*virtv1.VirtualMachine) error
+	Store(*virtv1.VirtualMachine, *virtv1.VirtualMachineInstance) error
 }
 
 type upgradeHandler interface {
@@ -125,7 +125,7 @@ func (c *controller) Sync(vm *virtv1.VirtualMachine, vmi *virtv1.VirtualMachineI
 	switch referencePolicy {
 	case virtv1.Reference:
 		// Ensure we have controllerRevisions of any instancetype or preferences referenced by the VM
-		if err := c.Store(vm); err != nil {
+		if err := c.Store(vm, vmi); err != nil {
 			log.Log.Object(vm).Errorf(storeControllerRevisionErrFmt, err)
 			c.recorder.Eventf(vm, corev1.EventTypeWarning, common.FailedCreateVirtualMachineReason, storeControllerRevisionErrFmt, err)
 			return vm, common.NewSyncError(fmt.Errorf(storeControllerRevisionErrFmt, err), common.FailedCreateVirtualMachineReason)
